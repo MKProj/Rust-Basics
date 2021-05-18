@@ -1,0 +1,18 @@
+[1] Config.pm:312> INFO - This is Biber 2.15
+[1] Config.pm:315> INFO - Logfile is 'main.blg'
+[373] biber:330> INFO - === Mon Mar 22, 2021, 16:54:57
+[536] Biber.pm:415> INFO - Reading 'main.bcf'
+[823] Biber.pm:952> INFO - Found 2 citekeys in bib section 0
+[892] Biber.pm:4334> INFO - Processing section 0
+[1000] Biber.pm:4523> INFO - Looking for bibtex format file 'bibliography.bib' for section 0
+[1020] bibtex.pm:1682> INFO - LaTeX decoding ...
+[1035] bibtex.pm:1494> INFO - Found BibTeX data source 'bibliography.bib'
+[1194] Utils.pm:384> WARN - month field 'March' in entry 'article_key' is not an integer - this will probably not sort properly.
+[1213] Utils.pm:384> WARN - month field 'January' in entry 'book_key' is not an integer - this will probably not sort properly.
+[1255] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[1256] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[1256] Biber.pm:4162> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
+[1257] Biber.pm:4168> INFO - No sort tailoring available for locale 'en-US'
+[1269] bbl.pm:651> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[1275] bbl.pm:754> INFO - Output to main.bbl
+[1275] Biber.pm:128> INFO - WARNINGS: 2
