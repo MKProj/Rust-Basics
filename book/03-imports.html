@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Cargo - Rust Basics</title>
+        <title>Imports &amp; Namespaces - Rust Basics</title>
         
         
 
@@ -98,7 +98,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="00.html">Getting Started</a></li><li class="chapter-item expanded "><a href="01-bindings.html">Bindings &amp; Mutability</a></li><li class="chapter-item expanded "><a href="02-imports.html">Imports &amp; Namespaces</a></li><li class="chapter-item expanded "><a href="03-cf.html">Control Flow</a></li><li class="chapter-item expanded "><a href="04-mod.html">Modules &amp; Functions</a></li><li class="chapter-item expanded "><a href="05-cargo.html" class="active">Cargo</a></li><li class="chapter-item expanded "><a href="06-owner.html">Ownership Basics</a></li><li class="chapter-item expanded "><a href="07-strs.html">Strings, Strs, Vecs &amp; Slices</a></li><li class="chapter-item expanded "><a href="08-struct.html">Structs &amp; Enums</a></li><li class="chapter-item expanded "><a href="09-match.html">Match</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="01.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="02-bindings.html"><strong aria-hidden="true">2.</strong> Bindings &amp; Mutability</a></li><li class="chapter-item expanded "><a href="03-imports.html" class="active"><strong aria-hidden="true">3.</strong> Imports &amp; Namespaces</a></li><li class="chapter-item expanded "><a href="04-cf.html"><strong aria-hidden="true">4.</strong> Control Flow</a></li><li class="chapter-item expanded "><a href="05-mod.html"><strong aria-hidden="true">5.</strong> Modules &amp; Functions</a></li><li class="chapter-item expanded "><a href="06-cargo.html"><strong aria-hidden="true">6.</strong> Cargo</a></li><li class="chapter-item expanded "><a href="07-owner.html"><strong aria-hidden="true">7.</strong> Ownership Basics</a></li><li class="chapter-item expanded "><a href="08-strs.html"><strong aria-hidden="true">8.</strong> Strings, Strs, Vecs &amp; Slices</a></li><li class="chapter-item expanded "><a href="09-struct.html"><strong aria-hidden="true">9.</strong> Structs &amp; Enums</a></li><li class="chapter-item expanded "><a href="10-match.html"><strong aria-hidden="true">10.</strong> Match</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -170,20 +170,35 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="cargo"><a class="header" href="#cargo">Cargo</a></h1>
+                        <h1 id="imports--namespaces"><a class="header" href="#imports--namespaces">Imports &amp; Namespaces</a></h1>
+<p>In many languages it is common to import libraries from external, or standard libraries, in our case we will only consider the standard library until we talk about <a href="06-cargo.html">Cargo in Section 6</a>. So I guess the best way to start is by first figuring out how to import a library, and that is done by the <code>use</code> keyword. </p>
+<p>To help with this section, we will create a simple user input program by using the standard library input/output module ,<code>std::io</code>. </p>
+<pre><pre class="playground"><code class="language-rust">use std::io;
+
+fn main() {
+    let mut input = String::new(); // Creates a new String
+    io::stdin().read_line(&amp;mut input).unwrap();
+    println!(&quot;Your input is {}&quot;, input);
+    /*
+    What this means is that we borrow (&amp;) the binding input, and
+    it must be mutable, since it will change it's value
+    */
+}
+</code></pre></pre>
+<p>In this example, we specify that we only want to use the <code>io</code> module </p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="04-mod.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="02-bindings.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="06-owner.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="04-cf.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -195,13 +210,13 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="04-mod.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="02-bindings.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="06-owner.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="04-cf.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 

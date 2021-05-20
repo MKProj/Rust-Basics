@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Getting Started - Rust Basics</title>
+        <title>Bindings &amp; Mutability - Rust Basics</title>
         
         
 
@@ -98,7 +98,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="00.html" class="active">Getting Started</a></li><li class="chapter-item expanded "><a href="01-bindings.html">Bindings &amp; Mutability</a></li><li class="chapter-item expanded "><a href="02-imports.html">Imports &amp; Namespaces</a></li><li class="chapter-item expanded "><a href="03-cf.html">Control Flow</a></li><li class="chapter-item expanded "><a href="04-mod.html">Modules &amp; Functions</a></li><li class="chapter-item expanded "><a href="05-cargo.html">Cargo</a></li><li class="chapter-item expanded "><a href="06-owner.html">Ownership Basics</a></li><li class="chapter-item expanded "><a href="07-strs.html">Strings, Strs, Vecs &amp; Slices</a></li><li class="chapter-item expanded "><a href="08-struct.html">Structs &amp; Enums</a></li><li class="chapter-item expanded "><a href="09-match.html">Match</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="01.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="02-bindings.html" class="active"><strong aria-hidden="true">2.</strong> Bindings &amp; Mutability</a></li><li class="chapter-item expanded "><a href="03-imports.html"><strong aria-hidden="true">3.</strong> Imports &amp; Namespaces</a></li><li class="chapter-item expanded "><a href="04-cf.html"><strong aria-hidden="true">4.</strong> Control Flow</a></li><li class="chapter-item expanded "><a href="05-mod.html"><strong aria-hidden="true">5.</strong> Modules &amp; Functions</a></li><li class="chapter-item expanded "><a href="06-cargo.html"><strong aria-hidden="true">6.</strong> Cargo</a></li><li class="chapter-item expanded "><a href="07-owner.html"><strong aria-hidden="true">7.</strong> Ownership Basics</a></li><li class="chapter-item expanded "><a href="08-strs.html"><strong aria-hidden="true">8.</strong> Strings, Strs, Vecs &amp; Slices</a></li><li class="chapter-item expanded "><a href="09-struct.html"><strong aria-hidden="true">9.</strong> Structs &amp; Enums</a></li><li class="chapter-item expanded "><a href="10-match.html"><strong aria-hidden="true">10.</strong> Match</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -170,16 +170,69 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="getting-started"><a class="header" href="#getting-started">Getting Started</a></h1>
+                        <h1 id="bindings--mutability"><a class="header" href="#bindings--mutability">Bindings &amp; Mutability</a></h1>
+<p>In Rust, another way of calling a binding is a variable. A binding is used as a placeholder to store memory of a particular value, and in Rust, by default is set to immutable. Before talking more about this, let's first look at how to declare a binding, one with type inference, and the other with an explicit type: </p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a = 5.0; //Inferred by default as float64 or f64
+let b: f64 = 5.0; //Explicitly declared as type f64
+<span class="boring">}
+</span></code></pre></pre>
+<p>To delcare a binding, you must use the <code>let</code> keyword with a purposeful name 
+and an assignment operator, <code>=</code>, with an appropriate value with it. Due to Rust 
+being a safe memory language, all bindings are immutable by default, and this is different than most languages, however you'll see most of the times mutability isn't 
+necessary. But that doesn't mean mutability isn't possible, it is instead initiated with the convenient <code>mut</code> keyword. </p>
+<pre><pre class="playground"><code class="language-rust">fn main(){
+    let mut a = &quot;I am Mutable&quot;; 
+    a = &quot;I can change values!!!&quot;; 
+    
+    let b = &quot;I am immutable&quot;; 
+    b = &quot;This will cause an error!&quot;;
+    //Press play to check the error!
+}
+</code></pre></pre>
+<h2 id="data-types"><a class="header" href="#data-types">Data Types</a></h2>
+<hr />
+<p>Rust has four main data types, which are the following: </p>
+<ul>
+<li>Integers (non decimal point numbers) 
+<ul>
+<li>Signed: <code>i8, i16, i32, i64, i128, isize</code></li>
+<li>Unsigned: <code>u8, u16, u32, u64, u128, usize</code></li>
+</ul>
+</li>
+<li>Floating Points (decimal point numbers)
+<ul>
+<li><code>f32 or f64(inferred default)</code></li>
+</ul>
+</li>
+<li>Boolean
+<ul>
+<li><code>bool</code>, either evaluates to <code>true or false</code></li>
+</ul>
+</li>
+<li>Characters 
+<ul>
+<li><code>char</code>, such as <code>'L'</code></li>
+</ul>
+</li>
+</ul>
+<p>Another type that is commonly used but not primitive is Strings
+and is denoted by <code>String</code>. </p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
+                            <a rel="prev" href="01.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
 
                         
-                            <a rel="next" href="01-bindings.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="03-imports.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -191,9 +244,13 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
+                    <a rel="prev" href="01.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
 
                 
-                    <a rel="next" href="01-bindings.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="03-imports.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 

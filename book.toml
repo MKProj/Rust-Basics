@@ -7,7 +7,7 @@ default-theme = "ayu"
 git-repository-url = "https://github.com/MKProj/Rust-Basics.git"
 git-repository-icon = "fa-github"
 copy-fonts = true
-no-section-label = true
+no-section-label = false
 mathjax-support = true
 
 [output.html.search]
