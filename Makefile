@@ -2,6 +2,7 @@ build:
 	make mdbook
 	make tex
 	make git
+	cp book/* ../Books/R*/ -r 
 
 git: 
 	git add -A

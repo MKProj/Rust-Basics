@@ -292,7 +292,54 @@ fn main() {
     */
 }
 </code></pre></pre>
-<p>In this example, we specify that we only want to use the <code>io</code> module </p>
+<p>In this example, we specify that we only want to use the <code>io</code> module in the 
+<code>std</code> library. However let's say we don't know what we really want from the <code>std</code> 
+library, and instead of guessing, we could just import everything by using <code>*</code> after 
+<code>std::</code>. </p>
+<p>Consider the example below: </p>
+<pre><pre class="playground"><code class="language-rust">use std::*;
+
+fn main() {
+    //We will be copying one file to another
+    let mut a = fs::File::create(&quot;file.txt&quot;).expect(&quot;file not created&quot;);
+
+    //The file we will be copying from
+    let mut b = fs::File::open(&quot;copy.txt&quot;).expect(&quot;file not found&quot;);
+    //Using io to copy b to a
+    io::copy(&amp;mut b, &amp;mut a).expect(&quot;file cannot be copied&quot;);
+}
+</code></pre></pre>
+<p>We get the following result: </p>
+<pre><code class="language-bash">$ rustc ex.rs
+$ ./ex
+
+#copy.txt
+This file has words!!!
+
+#file.txt
+This file has words!!!
+</code></pre>
+<p>As you can see we could access anything from <code>std</code> using <code>*</code>, however it isn't the
+most effective thing to do, in this example we only needed <code>io</code> and <code>fs</code> modules, so 
+let's just import those. </p>
+<pre><pre class="playground"><code class="language-rust">use std::{fs, io};
+
+fn main() {
+    //We will be copying one file to another
+    let mut a = fs::File::create(&quot;file.txt&quot;).expect(&quot;file not created&quot;);
+
+    //The file we will be copying from
+    let mut b = fs::File::open(&quot;copy.txt&quot;).expect(&quot;file not found&quot;);
+    //Using io to copy b to a
+    io::copy(&amp;mut b, &amp;mut a).expect(&quot;file cannot be copied&quot;);
+}
+</code></pre></pre>
+<p>As you can see, if you know what you want to import, and need multiple modules, then
+surround them with <code>{ }</code>. </p>
+<blockquote>
+<p>Keep in mind, when it comes to namespaces, whatever the module you import is the name
+you must start with. Example <code>std::io</code> you use <code>io::</code>, but if you did <code>std::fs::File</code>, you must start with <code>File::</code></p>
+</blockquote>
 <h1 id="control-flow"><a class="header" href="#control-flow">Control Flow</a></h1>
 <h1 id="modules--functions"><a class="header" href="#modules--functions">Modules &amp; Functions</a></h1>
 <h1 id="cargo"><a class="header" href="#cargo">Cargo</a></h1>
