@@ -341,7 +341,103 @@ surround them with <code>{ }</code>. </p>
 you must start with. Example <code>std::io</code> you use <code>io::</code>, but if you did <code>std::fs::File</code>, you must start with <code>File::</code></p>
 </blockquote>
 <h1 id="control-flow"><a class="header" href="#control-flow">Control Flow</a></h1>
+<h2 id="if-statements"><a class="header" href="#if-statements">If Statements</a></h2>
+<p>An <code>if</code> statement is a block of code that can be executed by a program if 
+a condition results to <code>true</code>. For example let's ask the user for a number 
+from 1 to 10, if it's less than 5, we will say <code>&quot;Wow that's low huh!&quot;</code>. </p>
+<pre><pre class="playground"><code class="language-rust">use std::io::stdin; //To get standard input 
+
+fn main(){
+    let mut input = String::new();
+    println!(&quot;Enter a number from 1 to 10!&quot;);
+    stdin().read_line(&amp;mut input).unwrap(); //Gets user input 
+
+    //Now to convert the String to i32
+    let i:i32 = input.trim().parse().expect(&quot;Expected an integer&quot;);
+
+    if i &lt; 5 {
+        println!(&quot;Wow that's low huh!&quot;);
+    }
+}
+</code></pre></pre>
+<blockquote>
+<p>As you can see, we have the <code>if</code> keyword followed by the condition, such as <code>i &lt; 5</code> 
+then the block of code executed is surrounded by <code>{ }</code>. </p>
+</blockquote>
+<h2 id="else-clause"><a class="header" href="#else-clause">Else Clause</a></h2>
+<p>This program isn't really that good, it only gives you something if you guess a number less than 5, but let's say I guess 8? I should still get something, and that's when the <code>else</code> clause comes in, unlike the <code>if</code> statement, it will execute a block of code 
+only if it results to <code>false</code>. So let's fix our program so when I guess 5 or greater I am presented with <code>&quot;Buddy you guessed too high!&quot;</code>. </p>
+<pre><pre class="playground"><code class="language-rust">use std::io::stdin; //To get standard input 
+
+fn main(){
+    let mut input = String::new();
+    println!(&quot;Enter a number from 1 to 10!&quot;);
+    stdin().read_line(&amp;mut input).unwrap(); //Gets user input 
+
+    //Now to convert the String to i32
+    let i:i32 = input.trim().parse().expect(&quot;Expected an integer&quot;);
+
+    if i &lt; 5 {
+        println!(&quot;Wow that's low huh!&quot;);
+    } else {
+        println!(&quot;Buddy you guessed too high!&quot;);
+    }
+}
+</code></pre></pre>
+<blockquote>
+<p>Notice how when you're using the <code>else</code> clause, you don't require a 
+condition, since it's like a default.</p>
+</blockquote>
+<h2 id="else-if-statement"><a class="header" href="#else-if-statement">Else if Statement</a></h2>
+<p>Now I got another problem with my program, I want something to happen when they guess 
+5, so how do I do that, add another <code>if</code> statement? But that would look so disgusting, 
+so instead why not add an <code>else if</code> statement? An <code>else if</code> statement is like a second order condition, if the first <code>if</code> statement results to false, then the <code>else if</code> statement is checked, and if it results to <code>true</code> then it's block of code is executed. </p>
+<pre><pre class="playground"><code class="language-rust">use std::io::stdin; //To get standard input 
+
+fn main(){
+    let mut input = String::new();
+    println!(&quot;Enter a number from 1 to 10!&quot;);
+    stdin().read_line(&amp;mut input).unwrap(); //Gets user input 
+
+    //Now to convert the String to i32
+    let i:i32 = input.trim().parse().expect(&quot;Expected an integer&quot;);
+
+    if i &lt; 5 {
+        println!(&quot;Wow that's low huh!&quot;);
+    } else if i == 5{
+        println!(&quot;You guessed right!!!&quot;);
+    } else {
+        println!(&quot;Buddy you guessed too high!&quot;);
+    }
+}
+</code></pre></pre>
+<blockquote>
+<p>An <code>else if</code> statement has the same syntax as an <code>if</code> statement, except it must be 
+after an <code>if</code> statement and before the <code>else</code> clause. </p>
+</blockquote>
 <h1 id="modules--functions"><a class="header" href="#modules--functions">Modules &amp; Functions</a></h1>
+<h2 id="function-syntax"><a class="header" href="#function-syntax">Function Syntax</a></h2>
+<p>A function in Rust is defined with the <code>fn</code> keyword and is a block of code 
+that uses parameters to pass arguments and returns a value or values. To create a 
+function first use the <code>fn</code> keyword along with a name, then put brackets<code>()</code> that will 
+contain the parameters, and then <code>{}</code> for your block of code.</p>
+<p>To make this a lot simpler, observe a simple <code>hello_world()</code> function that asks 
+for a name and prints <code>&quot;Hello World Name!&quot;</code>. To do this we will also require a 
+parameter name that's a <code>String</code>. </p>
+<pre><pre class="playground"><code class="language-rust">//Let's define our hello_world function
+fn hello_world(name: &amp;String){
+// Since we don't want to entirely use the variable 
+// We will borrow it using &amp;
+    println!(&quot;Hello World {}!&quot;, name);
+}
+
+fn main(){
+    let mut name: String = String::from(&quot;Bob&quot;);
+
+    //To call a function simply use it's name
+    hello_world(&amp;name);
+}
+</code></pre></pre>
 <h1 id="cargo"><a class="header" href="#cargo">Cargo</a></h1>
 <h1 id="ownership-basics"><a class="header" href="#ownership-basics">Ownership Basics</a></h1>
 <h1 id="strings-strs-vecs--slices"><a class="header" href="#strings-strs-vecs--slices">Strings, Strs, Vecs &amp; Slices</a></h1>

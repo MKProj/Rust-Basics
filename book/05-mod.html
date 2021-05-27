@@ -171,6 +171,28 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="modules--functions"><a class="header" href="#modules--functions">Modules &amp; Functions</a></h1>
+<h2 id="function-syntax"><a class="header" href="#function-syntax">Function Syntax</a></h2>
+<p>A function in Rust is defined with the <code>fn</code> keyword and is a block of code 
+that uses parameters to pass arguments and returns a value or values. To create a 
+function first use the <code>fn</code> keyword along with a name, then put brackets<code>()</code> that will 
+contain the parameters, and then <code>{}</code> for your block of code.</p>
+<p>To make this a lot simpler, observe a simple <code>hello_world()</code> function that asks 
+for a name and prints <code>&quot;Hello World Name!&quot;</code>. To do this we will also require a 
+parameter name that's a <code>String</code>. </p>
+<pre><pre class="playground"><code class="language-rust">//Let's define our hello_world function
+fn hello_world(name: &amp;String){
+// Since we don't want to entirely use the variable 
+// We will borrow it using &amp;
+    println!(&quot;Hello World {}!&quot;, name);
+}
+
+fn main(){
+    let mut name: String = String::from(&quot;Bob&quot;);
+
+    //To call a function simply use it's name
+    hello_world(&amp;name);
+}
+</code></pre></pre>
 
                     </main>
 
