@@ -438,7 +438,107 @@ fn main(){
     hello_world(&amp;name);
 }
 </code></pre></pre>
+<h3 id="return-type"><a class="header" href="#return-type">Return Type</a></h3>
+<p>When you write a function in Rust, you can either return nothing, in other 
+languages that may be called a <code>void</code> function, or you can return a data type using <code>fn foo()-&gt;type{}</code>. For our example we will create a simple add function to show an easy example to return: </p>
+<pre><pre class="playground"><code class="language-rust">fn add(a:i32, b:i32)-&gt;i32{
+    return a + b; 
+}
+//Another way of returning is: 
+fn add_alt(a:i32, b:i32)-&gt;i32{
+    a + b;
+}
+fn main(){
+    let a = add(2,5);
+    let b = add_alt(2,5);
+
+    if a == b{
+        println!(&quot;Same result&quot;);
+    }
+}
+</code></pre></pre>
+<h2 id="modules"><a class="header" href="#modules">Modules</a></h2>
+<p>To introduce modules we will be writing a program that involves two files, 
+we will respectively have <code>lib.rs</code> and <code>main.rs</code>. We will have two different sections or modules in our library, one being for geometry of 2D shapes and the other for 3D. To define a module, we must use the <code>mod</code> keyword.</p>
+<blockquote>
+<p>To have functions able to use outside of the module or library, make sure
+to use the <code>pub</code> keyowrd. </p>
+</blockquote>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>//lib.rs
+mod 2D{
+    pub fn Area(len: f64, width: f64)-&gt;f64{
+        len*width; 
+    }
+}
+mod 3D{
+    pub fn Volume(len: f64, width: f64, height: f64){
+        len * width * height;
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Now to import our library, we must first <code>mod</code> it then we can <code>use</code> the 
+library, so let's do that. </p>
+<pre><pre class="playground"><code class="language-rust">//main.rs 
+mod lib; 
+use lib::2D;
+use lib::3D;
+
+fn main(){
+    /* 
+    Let's find the area and volume of 
+    a square and cube respectively. 
+    */  
+    let side = 2.56;
+    println!(&quot;Area: {}&quot;, Area(side, side));
+    println!(&quot;Volume: {}&quot;, Volume(side, side, side));
+}
+</code></pre></pre>
 <h1 id="cargo"><a class="header" href="#cargo">Cargo</a></h1>
+<p>Cargo is Rust's package manager utility and is the recommended way to build a Rust program as it allows the ability to import crates, and publish your own. It is very convenient to the user, and offers two different type of projects to be built: </p>
+<ul>
+<li>bin : A binary project is a project to be executable</li>
+<li>lib: A library is a way to store all your functions, modules, etc. seperately</li>
+</ul>
+<p>Let's create a Unit Converter program that for our need will only convert Kelvin or Fahrenheit units to Celsius. </p>
+<pre><code class="language-bash"># First create our binary project 
+$ cargo new unit_converter # default is bin
+     Created binary (application) `unit_converter` package
+
+# Go to the project and check it's content
+$ cd unit_converter &amp;&amp; ls
+Cargo.toml  src
+
+# Let's run the program
+$ cargo run
+   Compiling unit_converter v0.1.0 (/home/user/unit_converter)
+    Finished dev [unoptimized + debuginfo] target(s) in 2.12s
+     Running `target/debug/unit_converter`
+Hello, world!
+</code></pre>
+<p>Now if you noticed, you'll see that program ran from a <code>target</code> directory, and when we first did <code>ls</code> we didn't see it. Well that's because it doesn't appear until you first run the program. </p>
+<p>Now we need to import a library, for our example we will be using the <code>uniconv</code> module in the <code>mkproj-lib</code> crate. You can either go to <a href="http://crates.io">crates.io</a> and search it up, or you can use <code>cargo search mkproj-lib</code>. Let's try <code>cargo search</code>, and if you want to look more into what <code>mkproj-lib</code> contains, visit it's <a href="http://docs.rs/mkproj_lib">documentation</a>!</p>
+<pre><code class="language-bash">$ cargo search mkproj-lib
+mkproj-lib = &quot;0.2.10&quot;    # Modules for MKProject Programs
+</code></pre>
+<p>To first use the crate, we must have it as a dependecies, and that is under <code>Cargo.toml</code>.<br />
+The <code>Cargo.toml</code> is used to contain the metadata of the project, such as name, version, dependencies, etc. </p>
+<pre><code class="language-toml">[package]
+name = &quot;unit_converter&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;Name &lt;email&gt;&quot;]
+edition = &quot;2018&quot;
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/refere&gt;
+
+[dependencies]
+mkproj-lib = &quot;0.2.10&quot; # We have our crate here 
+</code></pre>
+<p>Now let's go to our <code>main.rs</code> file that will be under the <code>src</code> directory, and we will get user input for temperature and whether it's 
+Fahrenheit or Kelvin. </p>
 <h1 id="ownership-basics"><a class="header" href="#ownership-basics">Ownership Basics</a></h1>
 <h1 id="strings-strs-vecs--slices"><a class="header" href="#strings-strs-vecs--slices">Strings, Strs, Vecs &amp; Slices</a></h1>
 <h1 id="structs--enums"><a class="header" href="#structs--enums">Structs &amp; Enums</a></h1>

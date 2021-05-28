@@ -171,6 +171,47 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="cargo"><a class="header" href="#cargo">Cargo</a></h1>
+<p>Cargo is Rust's package manager utility and is the recommended way to build a Rust program as it allows the ability to import crates, and publish your own. It is very convenient to the user, and offers two different type of projects to be built: </p>
+<ul>
+<li>bin : A binary project is a project to be executable</li>
+<li>lib: A library is a way to store all your functions, modules, etc. seperately</li>
+</ul>
+<p>Let's create a Unit Converter program that for our need will only convert Kelvin or Fahrenheit units to Celsius. </p>
+<pre><code class="language-bash"># First create our binary project 
+$ cargo new unit_converter # default is bin
+     Created binary (application) `unit_converter` package
+
+# Go to the project and check it's content
+$ cd unit_converter &amp;&amp; ls
+Cargo.toml  src
+
+# Let's run the program
+$ cargo run
+   Compiling unit_converter v0.1.0 (/home/user/unit_converter)
+    Finished dev [unoptimized + debuginfo] target(s) in 2.12s
+     Running `target/debug/unit_converter`
+Hello, world!
+</code></pre>
+<p>Now if you noticed, you'll see that program ran from a <code>target</code> directory, and when we first did <code>ls</code> we didn't see it. Well that's because it doesn't appear until you first run the program. </p>
+<p>Now we need to import a library, for our example we will be using the <code>uniconv</code> module in the <code>mkproj-lib</code> crate. You can either go to <a href="http://crates.io">crates.io</a> and search it up, or you can use <code>cargo search mkproj-lib</code>. Let's try <code>cargo search</code>, and if you want to look more into what <code>mkproj-lib</code> contains, visit it's <a href="http://docs.rs/mkproj_lib">documentation</a>!</p>
+<pre><code class="language-bash">$ cargo search mkproj-lib
+mkproj-lib = &quot;0.2.10&quot;    # Modules for MKProject Programs
+</code></pre>
+<p>To first use the crate, we must have it as a dependecies, and that is under <code>Cargo.toml</code>.<br />
+The <code>Cargo.toml</code> is used to contain the metadata of the project, such as name, version, dependencies, etc. </p>
+<pre><code class="language-toml">[package]
+name = &quot;unit_converter&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;Name &lt;email&gt;&quot;]
+edition = &quot;2018&quot;
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/refere&gt;
+
+[dependencies]
+mkproj-lib = &quot;0.2.10&quot; # We have our crate here 
+</code></pre>
+<p>Now let's go to our <code>main.rs</code> file that will be under the <code>src</code> directory, and we will get user input for temperature and whether it's 
+Fahrenheit or Kelvin. </p>
 
                     </main>
 
