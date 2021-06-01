@@ -145,13 +145,15 @@
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -227,7 +229,7 @@ good to look into extra resources, and good for you that the Rust Foundation alr
 </ul>
 <p>There is many more books provided by the Rust Foundations, so make sure 
 to <a href="https://www.rust-lang.org/learn">check out it out!</a></p>
-<h1 id="bindings--mutability"><a class="header" href="#bindings--mutability">Bindings &amp; Mutability</a></h1>
+<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><h1 id="bindings--mutability"><a class="header" href="#bindings--mutability">Bindings &amp; Mutability</a></h1>
 <p>In Rust, another way of calling a binding is a variable. A binding is used as a placeholder to store memory of a particular value, and in Rust, by default is set to immutable. Before talking more about this, let's first look at how to declare a binding, one with type inference, and the other with an explicit type: </p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
@@ -277,7 +279,7 @@ necessary. But that doesn't mean mutability isn't possible, it is instead initia
 </ul>
 <p>Another type that is commonly used but not primitive is Strings
 and is denoted by <code>String</code>. </p>
-<h1 id="imports--namespaces"><a class="header" href="#imports--namespaces">Imports &amp; Namespaces</a></h1>
+<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><h1 id="imports--namespaces"><a class="header" href="#imports--namespaces">Imports &amp; Namespaces</a></h1>
 <p>In many languages it is common to import libraries from external, or standard libraries, in our case we will only consider the standard library until we talk about <a href="06-cargo.html">Cargo in Section 6</a>. So I guess the best way to start is by first figuring out how to import a library, and that is done by the <code>use</code> keyword. </p>
 <p>To help with this section, we will create a simple user input program by using the standard library input/output module ,<code>std::io</code>. </p>
 <pre><pre class="playground"><code class="language-rust">use std::io;
@@ -340,7 +342,7 @@ surround them with <code>{ }</code>. </p>
 <p>Keep in mind, when it comes to namespaces, whatever the module you import is the name
 you must start with. Example <code>std::io</code> you use <code>io::</code>, but if you did <code>std::fs::File</code>, you must start with <code>File::</code></p>
 </blockquote>
-<h1 id="control-flow"><a class="header" href="#control-flow">Control Flow</a></h1>
+<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><h1 id="control-flow"><a class="header" href="#control-flow">Control Flow</a></h1>
 <h2 id="if-statements"><a class="header" href="#if-statements">If Statements</a></h2>
 <p>An <code>if</code> statement is a block of code that can be executed by a program if 
 a condition results to <code>true</code>. For example let's ask the user for a number 
@@ -415,7 +417,7 @@ fn main(){
 <p>An <code>else if</code> statement has the same syntax as an <code>if</code> statement, except it must be 
 after an <code>if</code> statement and before the <code>else</code> clause. </p>
 </blockquote>
-<h1 id="modules--functions"><a class="header" href="#modules--functions">Modules &amp; Functions</a></h1>
+<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><h1 id="modules--functions"><a class="header" href="#modules--functions">Modules &amp; Functions</a></h1>
 <h2 id="function-syntax"><a class="header" href="#function-syntax">Function Syntax</a></h2>
 <p>A function in Rust is defined with the <code>fn</code> keyword and is a block of code 
 that uses parameters to pass arguments and returns a value or values. To create a 
@@ -442,11 +444,11 @@ fn main(){
 <p>When you write a function in Rust, you can either return nothing, in other 
 languages that may be called a <code>void</code> function, or you can return a data type using <code>fn foo()-&gt;type{}</code>. For our example we will create a simple add function to show an easy example to return: </p>
 <pre><pre class="playground"><code class="language-rust">fn add(a:i32, b:i32)-&gt;i32{
-    return a + b; 
+    a + b 
 }
 //Another way of returning is: 
 fn add_alt(a:i32, b:i32)-&gt;i32{
-    a + b;
+    a + b
 }
 fn main(){
     let a = add(2,5);
@@ -462,7 +464,7 @@ fn main(){
 we will respectively have <code>lib.rs</code> and <code>main.rs</code>. We will have two different sections or modules in our library, one being for geometry of 2D shapes and the other for 3D. To define a module, we must use the <code>mod</code> keyword.</p>
 <blockquote>
 <p>To have functions able to use outside of the module or library, make sure
-to use the <code>pub</code> keyowrd. </p>
+to use the <code>pub</code> keyword to make it public (private by default). </p>
 </blockquote>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
@@ -497,7 +499,7 @@ fn main(){
     println!(&quot;Volume: {}&quot;, Volume(side, side, side));
 }
 </code></pre></pre>
-<h1 id="cargo"><a class="header" href="#cargo">Cargo</a></h1>
+<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><h1 id="cargo"><a class="header" href="#cargo">Cargo</a></h1>
 <p>Cargo is Rust's package manager utility and is the recommended way to build a Rust program as it allows the ability to import crates, and publish your own. It is very convenient to the user, and offers two different type of projects to be built: </p>
 <ul>
 <li>bin : A binary project is a project to be executable</li>
@@ -539,10 +541,10 @@ mkproj-lib = &quot;0.2.10&quot; # We have our crate here
 </code></pre>
 <p>Now let's go to our <code>main.rs</code> file that will be under the <code>src</code> directory, and we will get user input for temperature and whether it's 
 Fahrenheit or Kelvin. </p>
-<h1 id="ownership-basics"><a class="header" href="#ownership-basics">Ownership Basics</a></h1>
-<h1 id="strings-strs-vecs--slices"><a class="header" href="#strings-strs-vecs--slices">Strings, Strs, Vecs &amp; Slices</a></h1>
-<h1 id="structs--enums"><a class="header" href="#structs--enums">Structs &amp; Enums</a></h1>
-<h1 id="match"><a class="header" href="#match">Match</a></h1>
+<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><h1 id="ownership-basics"><a class="header" href="#ownership-basics">Ownership Basics</a></h1>
+<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><h1 id="strings-strs-vecs--slices"><a class="header" href="#strings-strs-vecs--slices">Strings, Strs, Vecs &amp; Slices</a></h1>
+<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><h1 id="structs--enums"><a class="header" href="#structs--enums">Structs &amp; Enums</a></h1>
+<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><h1 id="match"><a class="header" href="#match">Match</a></h1>
 
                     </main>
 

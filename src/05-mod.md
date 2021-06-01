@@ -32,11 +32,11 @@ languages that may be called a `void` function, or you can return a data type us
 
 ```rust
 fn add(a:i32, b:i32)->i32{
-    return a + b; 
+    a + b 
 }
 //Another way of returning is: 
 fn add_alt(a:i32, b:i32)->i32{
-    a + b;
+    a + b
 }
 fn main(){
     let a = add(2,5);
@@ -53,7 +53,7 @@ To introduce modules we will be writing a program that involves two files,
 we will respectively have `lib.rs` and `main.rs`. We will have two different sections or modules in our library, one being for geometry of 2D shapes and the other for 3D. To define a module, we must use the `mod` keyword.
 
 > To have functions able to use outside of the module or library, make sure
-> to use the `pub` keyowrd. 
+> to use the `pub` keyword to make it public (private by default). 
 
 ```rust
 //lib.rs
