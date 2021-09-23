@@ -1,0 +1,625 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Rust Basics</title>
+        
+        <meta name="robots" content="noindex" />
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="01.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="02-bindings.html"><strong aria-hidden="true">2.</strong> Bindings &amp; Mutability</a></li><li class="chapter-item expanded "><a href="03-imports.html"><strong aria-hidden="true">3.</strong> Imports &amp; Namespaces</a></li><li class="chapter-item expanded "><a href="04-cf.html"><strong aria-hidden="true">4.</strong> Control Flow</a></li><li class="chapter-item expanded "><a href="05-mod.html"><strong aria-hidden="true">5.</strong> Modules &amp; Functions</a></li><li class="chapter-item expanded "><a href="06-cargo.html"><strong aria-hidden="true">6.</strong> Cargo</a></li><li class="chapter-item expanded "><a href="07-owner.html"><strong aria-hidden="true">7.</strong> Ownership Basics</a></li><li class="chapter-item expanded "><a href="08-strs.html"><strong aria-hidden="true">8.</strong> Strings, Strs, Vecs &amp; Slices</a></li><li class="chapter-item expanded "><a href="09-struct.html"><strong aria-hidden="true">9.</strong> Structs &amp; Enums</a></li><li class="chapter-item expanded "><a href="10-match.html"><strong aria-hidden="true">10.</strong> Match</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Rust Basics</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                        <a href="https://github.com/MKProj/Rust-Basics.git" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                        
+
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="getting-started"><a class="header" href="#getting-started">Getting Started</a></h1>
+<p>Rust is a systems programming language that combines the speeds of a low level programming 
+language, as well as the memory safety with a high programming language. This makes Rust 
+a very impressive language as these aspects are an either or, however Rust is able to 
+reach this with it's ideals of Ownership, and the fact that it does not use a garbage collector.</p>
+<p>Rust was developed by Graydon Hoare at Mozilla Research, and it first publically appeared at July 7, 2010, since then it developed its own foundation funded by many corporations, and is called the Rust Foundation, 
+. It has gained remarks of a language not only similar in syntax to C++, but could possibly start replacing it in a company's application for more safe and secure code. This has proved to 
+be true for MKProjects as the first command line project was written in C++, but however the reliability 
+of an infinite loop is anything but reliable, so looking into Rust has been a good decision as 
+it now runs most of the projects, even this book is created using Rust!!!</p>
+<h2 id="install"><a class="header" href="#install">Install</a></h2>
+<p>To install Rust, it is recommended to install via Rustup so visit <a href="http://rustup.rs">rustup.rs</a></p>
+<h2 id="rust-compiler"><a class="header" href="#rust-compiler">Rust Compiler</a></h2>
+<p>In the first few sections we will be utilizing the Rust Compiler, 
+and it used as <code>rustc file.rs</code> which will create a binary that can 
+be executed. In this book, it will reflect upon the linux terminal, 
+however Unix Systems like MacOS will not differ, and Windows will
+have <code>.exe</code> files instead of binary files. </p>
+<h2 id="extra-resources"><a class="header" href="#extra-resources">Extra Resources</a></h2>
+<p>Keep in mind this is only an entry point into Rust and obviously doesn't cover everything that Rust offers, (and trust me there's a lot), so it is 
+good to look into extra resources, and good for you that the Rust Foundation already has you covered. </p>
+<ul>
+<li>
+<p><a href="https://doc.rust-lang.org/book/">The Book</a></p>
+<ul>
+<li>This is a good introduction to Rust and can cover more topics in better detail</li>
+</ul>
+</li>
+<li>
+<p><a href="https://doc.rust-lang.org/stable/rust-by-example/">Rust By Example</a></p>
+<ul>
+<li>Learn Rust in a more interactive way with examples</li>
+</ul>
+</li>
+<li>
+<p><a href="https://rust-cli.github.io/book/index.html">Command Line Book</a></p>
+<ul>
+<li>Create Command Line applications using Structopts </li>
+</ul>
+</li>
+<li>
+<p><a href="https://rustwasm.github.io/docs/book/">WebAssembly Book</a></p>
+<ul>
+<li>Create Web applications with Rust and Webassembly</li>
+</ul>
+</li>
+<li>
+<p><a href="https://doc.rust-lang.org/embedded-book">Embedded Book</a></p>
+<ul>
+<li>Created programs for embedded system with Rust</li>
+</ul>
+</li>
+</ul>
+<p>There is many more books provided by the Rust Foundations, so make sure 
+to <a href="https://www.rust-lang.org/learn">check out it out!</a></p>
+<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><h1 id="bindings--mutability"><a class="header" href="#bindings--mutability">Bindings &amp; Mutability</a></h1>
+<p>In Rust, another way of calling a binding is a variable. A binding is used as a placeholder to store memory of a particular value, and in Rust, by default is set to immutable. Before talking more about this, let's first look at how to declare a binding, one with type inference, and the other with an explicit type: </p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a = 5.0; //Inferred by default as float64 or f64
+let b: f64 = 5.0; //Explicitly declared as type f64
+<span class="boring">}
+</span></code></pre></pre>
+<p>To delcare a binding, you must use the <code>let</code> keyword with a purposeful name 
+and an assignment operator, <code>=</code>, with an appropriate value with it. Due to Rust 
+being a safe memory language, all bindings are immutable by default, and this is different than most languages, however you'll see most of the times mutability isn't 
+necessary. But that doesn't mean mutability isn't possible, it is instead initiated with the convenient <code>mut</code> keyword. </p>
+<pre><pre class="playground"><code class="language-rust">fn main(){
+    let mut a = &quot;I am Mutable&quot;; 
+    a = &quot;I can change values!!!&quot;; 
+    
+    let b = &quot;I am immutable&quot;; 
+    b = &quot;This will cause an error!&quot;;
+    //Press play to check the error!
+}
+</code></pre></pre>
+<h2 id="data-types"><a class="header" href="#data-types">Data Types</a></h2>
+<hr />
+<p>Rust has four main data types, which are the following: </p>
+<ul>
+<li>Integers (non decimal point numbers) 
+<ul>
+<li>Signed: <code>i8, i16, i32, i64, i128, isize</code></li>
+<li>Unsigned: <code>u8, u16, u32, u64, u128, usize</code></li>
+</ul>
+</li>
+<li>Floating Points (decimal point numbers)
+<ul>
+<li><code>f32 or f64(inferred default)</code></li>
+</ul>
+</li>
+<li>Boolean
+<ul>
+<li><code>bool</code>, either evaluates to <code>true or false</code></li>
+</ul>
+</li>
+<li>Characters 
+<ul>
+<li><code>char</code>, such as <code>'L'</code></li>
+</ul>
+</li>
+</ul>
+<p>Another type that is commonly used but not primitive is Strings
+and is denoted by <code>String</code>. </p>
+<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><h1 id="imports--namespaces"><a class="header" href="#imports--namespaces">Imports &amp; Namespaces</a></h1>
+<p>In many languages it is common to import libraries from external, or standard libraries, in our case we will only consider the standard library until we talk about <a href="06-cargo.html">Cargo in Section 6</a>. So I guess the best way to start is by first figuring out how to import a library, and that is done by the <code>use</code> keyword. </p>
+<p>To help with this section, we will create a simple user input program by using the standard library input/output module ,<code>std::io</code>. </p>
+<pre><pre class="playground"><code class="language-rust">use std::io;
+
+fn main() {
+    let mut input = String::new(); // Creates a new String
+    io::stdin().read_line(&amp;mut input).unwrap();
+    println!(&quot;Your input is {}&quot;, input);
+    /*
+    What this means is that we borrow (&amp;) the binding input, and
+    it must be mutable, since it will change it's value
+    */
+}
+</code></pre></pre>
+<p>In this example, we specify that we only want to use the <code>io</code> module in the 
+<code>std</code> library. However let's say we don't know what we really want from the <code>std</code> 
+library, and instead of guessing, we could just import everything by using <code>*</code> after 
+<code>std::</code>. </p>
+<p>Consider the example below: </p>
+<pre><pre class="playground"><code class="language-rust">use std::*;
+
+fn main() {
+    //We will be copying one file to another
+    let mut a = fs::File::create(&quot;file.txt&quot;).expect(&quot;file not created&quot;);
+
+    //The file we will be copying from
+    let mut b = fs::File::open(&quot;copy.txt&quot;).expect(&quot;file not found&quot;);
+    //Using io to copy b to a
+    io::copy(&amp;mut b, &amp;mut a).expect(&quot;file cannot be copied&quot;);
+}
+</code></pre></pre>
+<p>We get the following result: </p>
+<pre><code class="language-bash">$ rustc ex.rs
+$ ./ex
+
+#copy.txt
+This file has words!!!
+
+#file.txt
+This file has words!!!
+</code></pre>
+<p>As you can see we could access anything from <code>std</code> using <code>*</code>, however it isn't the
+most effective thing to do, in this example we only needed <code>io</code> and <code>fs</code> modules, so 
+let's just import those. </p>
+<pre><pre class="playground"><code class="language-rust">use std::{fs, io};
+
+fn main() {
+    //We will be copying one file to another
+    let mut a = fs::File::create(&quot;file.txt&quot;).expect(&quot;file not created&quot;);
+
+    //The file we will be copying from
+    let mut b = fs::File::open(&quot;copy.txt&quot;).expect(&quot;file not found&quot;);
+    //Using io to copy b to a
+    io::copy(&amp;mut b, &amp;mut a).expect(&quot;file cannot be copied&quot;);
+}
+</code></pre></pre>
+<p>As you can see, if you know what you want to import, and need multiple modules, then
+surround them with <code>{ }</code>. </p>
+<blockquote>
+<p>Keep in mind, when it comes to namespaces, whatever the module you import is the name
+you must start with. Example <code>std::io</code> you use <code>io::</code>, but if you did <code>std::fs::File</code>, you must start with <code>File::</code></p>
+</blockquote>
+<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><h1 id="control-flow"><a class="header" href="#control-flow">Control Flow</a></h1>
+<h2 id="if-statements"><a class="header" href="#if-statements">If Statements</a></h2>
+<p>An <code>if</code> statement is a block of code that can be executed by a program if 
+a condition results to <code>true</code>. For example let's ask the user for a number 
+from 1 to 10, if it's less than 5, we will say <code>&quot;Wow that's low huh!&quot;</code>. </p>
+<pre><pre class="playground"><code class="language-rust">use std::io::stdin; //To get standard input 
+
+fn main(){
+    let mut input = String::new();
+    println!(&quot;Enter a number from 1 to 10!&quot;);
+    stdin().read_line(&amp;mut input).unwrap(); //Gets user input 
+
+    //Now to convert the String to i32
+    let i:i32 = input.trim().parse().expect(&quot;Expected an integer&quot;);
+
+    if i &lt; 5 {
+        println!(&quot;Wow that's low huh!&quot;);
+    }
+}
+</code></pre></pre>
+<blockquote>
+<p>As you can see, we have the <code>if</code> keyword followed by the condition, such as <code>i &lt; 5</code> 
+then the block of code executed is surrounded by <code>{ }</code>. </p>
+</blockquote>
+<h2 id="else-clause"><a class="header" href="#else-clause">Else Clause</a></h2>
+<p>This program isn't really that good, it only gives you something if you guess a number less than 5, but let's say I guess 8? I should still get something, and that's when the <code>else</code> clause comes in, unlike the <code>if</code> statement, it will execute a block of code 
+only if it results to <code>false</code>. So let's fix our program so when I guess 5 or greater I am presented with <code>&quot;Buddy you guessed too high!&quot;</code>. </p>
+<pre><pre class="playground"><code class="language-rust">use std::io::stdin; //To get standard input 
+
+fn main(){
+    let mut input = String::new();
+    println!(&quot;Enter a number from 1 to 10!&quot;);
+    stdin().read_line(&amp;mut input).unwrap(); //Gets user input 
+
+    //Now to convert the String to i32
+    let i:i32 = input.trim().parse().expect(&quot;Expected an integer&quot;);
+
+    if i &lt; 5 {
+        println!(&quot;Wow that's low huh!&quot;);
+    } else {
+        println!(&quot;Buddy you guessed too high!&quot;);
+    }
+}
+</code></pre></pre>
+<blockquote>
+<p>Notice how when you're using the <code>else</code> clause, you don't require a 
+condition, since it's like a default.</p>
+</blockquote>
+<h2 id="else-if-statement"><a class="header" href="#else-if-statement">Else if Statement</a></h2>
+<p>Now I got another problem with my program, I want something to happen when they guess 
+5, so how do I do that, add another <code>if</code> statement? But that would look so disgusting, 
+so instead why not add an <code>else if</code> statement? An <code>else if</code> statement is like a second order condition, if the first <code>if</code> statement results to false, then the <code>else if</code> statement is checked, and if it results to <code>true</code> then it's block of code is executed. </p>
+<pre><pre class="playground"><code class="language-rust">use std::io::stdin; //To get standard input 
+
+fn main(){
+    let mut input = String::new();
+    println!(&quot;Enter a number from 1 to 10!&quot;);
+    stdin().read_line(&amp;mut input).unwrap(); //Gets user input 
+
+    //Now to convert the String to i32
+    let i:i32 = input.trim().parse().expect(&quot;Expected an integer&quot;);
+
+    if i &lt; 5 {
+        println!(&quot;Wow that's low huh!&quot;);
+    } else if i == 5{
+        println!(&quot;You guessed right!!!&quot;);
+    } else {
+        println!(&quot;Buddy you guessed too high!&quot;);
+    }
+}
+</code></pre></pre>
+<blockquote>
+<p>An <code>else if</code> statement has the same syntax as an <code>if</code> statement, except it must be 
+after an <code>if</code> statement and before the <code>else</code> clause. </p>
+</blockquote>
+<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><h1 id="modules--functions"><a class="header" href="#modules--functions">Modules &amp; Functions</a></h1>
+<h2 id="function-syntax"><a class="header" href="#function-syntax">Function Syntax</a></h2>
+<p>A function in Rust is defined with the <code>fn</code> keyword and is a block of code 
+that uses parameters to pass arguments and returns a value or values. To create a 
+function first use the <code>fn</code> keyword along with a name, then put brackets<code>()</code> that will 
+contain the parameters, and then <code>{}</code> for your block of code.</p>
+<p>To make this a lot simpler, observe a simple <code>hello_world()</code> function that asks 
+for a name and prints <code>&quot;Hello World Name!&quot;</code>. To do this we will also require a 
+parameter name that's a <code>String</code>. </p>
+<pre><pre class="playground"><code class="language-rust">//Let's define our hello_world function
+fn hello_world(name: &amp;String){
+// Since we don't want to entirely use the variable 
+// We will borrow it using &amp;
+    println!(&quot;Hello World {}!&quot;, name);
+}
+
+fn main(){
+    let mut name: String = String::from(&quot;Bob&quot;);
+
+    //To call a function simply use it's name
+    hello_world(&amp;name);
+}
+</code></pre></pre>
+<h3 id="return-type"><a class="header" href="#return-type">Return Type</a></h3>
+<p>When you write a function in Rust, you can either return nothing, in other 
+languages that may be called a <code>void</code> function, or you can return a data type using <code>fn foo()-&gt;type{}</code>. For our example we will create a simple add function to show an easy example to return: </p>
+<pre><pre class="playground"><code class="language-rust">fn add(a:i32, b:i32)-&gt;i32{
+    a + b 
+}
+//Another way of returning is: 
+fn add_alt(a:i32, b:i32)-&gt;i32{
+    a + b
+}
+fn main(){
+    let a = add(2,5);
+    let b = add_alt(2,5);
+
+    if a == b{
+        println!(&quot;Same result&quot;);
+    }
+}
+</code></pre></pre>
+<h2 id="modules"><a class="header" href="#modules">Modules</a></h2>
+<p>To introduce modules we will be writing a program that involves two files, 
+we will respectively have <code>lib.rs</code> and <code>main.rs</code>. We will have two different sections or modules in our library, one being for geometry of 2D shapes and the other for 3D. To define a module, we must use the <code>mod</code> keyword.</p>
+<blockquote>
+<p>To have functions able to use outside of the module or library, make sure
+to use the <code>pub</code> keyword to make it public (private by default). </p>
+</blockquote>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>//lib.rs
+mod 2D{
+    pub fn Area(len: f64, width: f64)-&gt;f64{
+        len*width; 
+    }
+}
+mod 3D{
+    pub fn Volume(len: f64, width: f64, height: f64){
+        len * width * height;
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Now to import our library, we must first <code>mod</code> it then we can <code>use</code> the 
+library, so let's do that. </p>
+<pre><pre class="playground"><code class="language-rust">//main.rs 
+mod lib; 
+use lib::2D;
+use lib::3D;
+
+fn main(){
+    /* 
+    Let's find the area and volume of 
+    a square and cube respectively. 
+    */  
+    let side = 2.56;
+    println!(&quot;Area: {}&quot;, Area(side, side));
+    println!(&quot;Volume: {}&quot;, Volume(side, side, side));
+}
+</code></pre></pre>
+<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><h1 id="cargo"><a class="header" href="#cargo">Cargo</a></h1>
+<p>Cargo is Rust's package manager utility and is the recommended way to build a Rust program as it allows the ability to import crates, and publish your own. It is very convenient to the user, and offers two different type of projects to be built: </p>
+<ul>
+<li>bin : A binary project is a project to be executable</li>
+<li>lib: A library is a way to store all your functions, modules, etc. seperately</li>
+</ul>
+<p>Let's create a Unit Converter program that for our need will only convert Kelvin or Fahrenheit units to Celsius. </p>
+<pre><code class="language-bash"># First create our binary project 
+$ cargo new unit_converter # default is bin
+     Created binary (application) `unit_converter` package
+
+# Go to the project and check it's content
+$ cd unit_converter &amp;&amp; ls
+Cargo.toml  src
+
+# Let's run the program
+$ cargo run
+   Compiling unit_converter v0.1.0 (/home/user/unit_converter)
+    Finished dev [unoptimized + debuginfo] target(s) in 2.12s
+     Running `target/debug/unit_converter`
+Hello, world!
+</code></pre>
+<p>Now if you noticed, you'll see that program ran from a <code>target</code> directory, and when we first did <code>ls</code> we didn't see it. Well that's because it doesn't appear until you first run the program. </p>
+<p>Now we need to import a library, for our example we will be using the <code>uniconv</code> module in the <code>mkproj-lib</code> crate. You can either go to <a href="http://crates.io">crates.io</a> and search it up, or you can use <code>cargo search mkproj-lib</code>. Let's try <code>cargo search</code>, and if you want to look more into what <code>mkproj-lib</code> contains, visit it's <a href="http://docs.rs/mkproj_lib">documentation</a>!</p>
+<pre><code class="language-bash">$ cargo search mkproj-lib
+mkproj-lib = &quot;0.2.10&quot;    # Modules for MKProject Programs
+</code></pre>
+<p>To first use the crate, we must have it as a dependecies, and that is under <code>Cargo.toml</code>.<br />
+The <code>Cargo.toml</code> is used to contain the metadata of the project, such as name, version, dependencies, etc. </p>
+<pre><code class="language-toml">[package]
+name = &quot;unit_converter&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;Name &lt;email&gt;&quot;]
+edition = &quot;2018&quot;
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/refere&gt;
+
+[dependencies]
+mkproj-lib = &quot;0.2.10&quot; # We have our crate here 
+</code></pre>
+<p>Now let's go to our <code>main.rs</code> file that will be under the <code>src</code> directory, and we will get user input for temperature and whether it's 
+Fahrenheit or Kelvin. </p>
+<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><h1 id="ownership-basics"><a class="header" href="#ownership-basics">Ownership Basics</a></h1>
+<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><h1 id="strings-strs-vecs--slices"><a class="header" href="#strings-strs-vecs--slices">Strings, Strs, Vecs &amp; Slices</a></h1>
+<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><h1 id="structs--enums"><a class="header" href="#structs--enums">Structs &amp; Enums</a></h1>
+<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><h1 id="match"><a class="header" href="#match">Match</a></h1>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3000/__livereload");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            MathJax.Hub.Register.StartupHook('End', function() {
+                window.setTimeout(window.print, 100);
+            });
+        });
+        </script>
+        
+        
+
+    </body>
+</html>
