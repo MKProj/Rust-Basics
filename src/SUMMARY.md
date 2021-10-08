@@ -7,6 +7,4 @@
 - [Modules & Functions](05-mod.md)
 - [Cargo](06-cargo.md)
 - [Ownership Basics](07-owner.md)
-- [Strings, Strs, Vecs & Slices](08-strs.md)
-- [Structs & Enums](09-struct.md)
-- [Match](10-match.md)
+- [Structs & Enums](08-struct.md)
