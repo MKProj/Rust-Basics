@@ -548,13 +548,129 @@ fighting the borrow checker. </p>
 } //The scope is over, so my_var is dropped
 <span class="boring">}
 </span></code></pre></pre>
+<p>Now we introduce the concept of borrowing, and this is done by using the <code>&amp;</code> operator. Borrowing allows other 
+variables to use a variables data, and we have two ways of borrowing, we have <code>&amp;</code> (immutable borrow) and <code>&amp;mut</code> 
+(mutable borrow) where mutable borrow allows for us to manipulate the data. </p>
+<pre><pre class="playground"><code class="language-rust">// This program borrows a vec and pushes 2 into it 
+fn push_two(v: &amp;mut Vec&lt;i32&gt;){
+    v.push(2);
+}
+fn main(){
+    let mut v = vec![1,6,7,8];
+    push_two(&amp;mut v);
+    println!(&quot;{:?}&quot;, v)
+}
+//Result: [1, 6, 7, 8, 2]
+</code></pre></pre>
+<h3 id="string-and-strs"><a class="header" href="#string-and-strs">String and strs</a></h3>
+<p>If you havent noticed, but Rust has two different type of string types, <code>String</code> and <code>&amp;str</code>, and this 
+can be explained due to ownership. A <code>String</code> variable is an owned value, and this means if you move the value from
+one variable to another, the new variable now owns the value and the other variable is dropped. Now the other string type 
+<code>&amp;str</code> is the reference to a string, or a borrowed version. So if you move one value to the other, both are still valid, 
+and these both have it's use cases and it's important to note that in functions it is common to use <code>&amp;str</code> instead of <code>String</code> (due to borrowing the parameter). </p>
+<p>This guide doesn't go into the finer details of the ownership rules in Rust and it is highly recommend to read the documentation provided by the Rust Foundation <a href="https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html">here for more details.</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="structs--enums"><a class="header" href="#structs--enums">Structs &amp; Enums</a></h1>
+<p>Compared to other languages like C++, Rust does not offer Classes, however instead it's concepts are 
+found in structs &amp; enums which are used to create custom types in programs. Let's first start of with structs 
+which are common to find in C#, Java, C etc. </p>
+<h2 id="structs"><a class="header" href="#structs">Structs</a></h2>
+<p>There are three type of structs that exist in Rust, we have: </p>
+<ol>
+<li>Empty Structs </li>
+<li>Tuple Structs </li>
+<li>Structs </li>
+</ol>
+<p>An empty struct is literally what you think, it contains no parameters and tend to be used as a placeholder in programs. A struct can be defined as <code>stuct &lt;name&gt;</code>, so an empty struct would look like: </p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct IamEmpty;
+<span class="boring">}
+</span></code></pre></pre>
+<p>A tuple struct is a struct that has no parameters, but instead just asks for the data type, this you can see right below: </p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct tupleStruct(i32, f32, String);
+<span class="boring">}
+</span></code></pre></pre>
+<p>As you can see it looks like a tuple, and doesn't set parameters with actual names.<br />
+The last one is the classic C struct where parameters and data types are provided, and is the most common type of struct you'll use or encounter. </p>
+<pre><pre class="playground"><code class="language-rust">struct classic{
+    a: i32, 
+    b: f32, 
+    c: String
+}
+
+fn main(){
+    let c: classic = classic{
+        a: 2, 
+        b: 7.8, 
+        c: &quot;Hello&quot;.to_owned()
+    }; //To invoke a struct
+}
+</code></pre></pre>
+<p>Enums are more custom, as it's not necessary to actually have a data type, of course depending on the context of the program. Let's create a color enum: </p>
+<pre><pre class="playground"><code class="language-rust">enum Color{
+    Red(u8), 
+    Green(u8),
+    Blue(u8)
+}
+
+fn main(){
+    let red = Color::Red(255);
+    let green = Color::Green(255);
+    let blue = Color::Blue(255);
+}
+</code></pre></pre>
+<p>Of course this is still limiting of what we can do, and that's where implementations come in, these provide functions for our structs or enums. Now let's create a struct for Points and put some functions in it. </p>
+<pre><pre class="playground"><code class="language-rust">//To make implementations we need to use the impl keyword
+struct Points{
+    x: f32,
+    y: f32,
+}
+
+impl Points{
+    fn new (x: f32, y: f32)-&gt; Self {
+        //Similar to a constructor 
+        Self{
+            x,
+            y
+        }
+    }
+    fn slope(&amp;self, other: &amp;Points)-&gt; f32{
+        (other.y - self.y) / (other.x - self.x)
+    }
+    fn midpoint(p1: &amp;Points, p2: &amp;Points)-&gt; Self{
+        Self{
+            x: (p1.x + p2.x) / 2.0, 
+            y: (p1.y + p2.y) / 2.0
+        }
+    }
+}
+
+fn main(){
+    let p1 = Points::new(7.8, 8.9);
+    let p2 = Points::new(9.8,6.7);
+
+    let midpoint = Points::midpoint(&amp;p1,&amp;p2);
+    //Any methods returning Self use ::
+    //Any methods not returning Self use .
+
+    println!(&quot;The midpoint of p1 to p2 is x: {} y: {}&quot;, midpoint.x, midpoint.y);
+    //The midpoint of p1 to p2 is x: 8.8 y: 7.7999997
+    println!(&quot;While the slope of p2 to p1 is {}&quot;, p1.slope(&amp;p2));
+    //While the slope of p2 to p1 is -1.0999999
+}
+</code></pre></pre>
 <!--
-- references and borrowing
-- string type 
-- memory and allocation
+- Empty struct
+- Tuple struct
+- classic strut
 
---><div style="break-before: page; page-break-before: always;"></div><h1 id="structs--enums"><a class="header" href="#structs--enums">Structs &amp; Enums</a></h1>
+- enums 
 
+- implementations >
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
