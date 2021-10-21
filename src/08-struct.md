@@ -39,6 +39,7 @@ fn main(){
     }; //To invoke a struct
 }
 ```
+## Enums
 Enums are more custom, as it's not necessary to actually have a data type, of course depending on the context of the program. Let's create a color enum: 
 
 ```rust
@@ -55,6 +56,7 @@ fn main(){
 }
 ```
 
+## Implementations
 Of course this is still limiting of what we can do, and that's where implementations come in, these provide functions for our structs or enums. Now let's create a struct for Points and put some functions in it. 
 
 ```rust
@@ -97,11 +99,3 @@ fn main(){
     //While the slope of p2 to p1 is -1.0999999
 }
 ```
-<!--
-- Empty struct
-- Tuple struct
-- classic strut
-
-- enums 
-
-- implementations >

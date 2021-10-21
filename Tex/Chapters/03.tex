@@ -1,0 +1,79 @@
+\chapter{Imports \& Namespaces}
+\par In many languages it is common to import libraries from external, or standard libraries, in our case we will only consider the standard library until we talk about [Cargo in Section 6](06-cargo.md). So I guess the best way to start is by first figuring out how to import a library, and that is done by the \verb!use! keyword. 
+
+\par To help with this section, we will create a simple user input program by using the standard library input/output module ,!std::io!. 
+
+\begin{lstlisting}
+use std::io;
+
+fn main() {
+    let mut input = String::new(); // Creates a new String
+    io::stdin().read_line(&mut input).unwrap();
+    println!("Your input is {}", input);
+    // What this means is that we borrow (&) the binding input, and
+    // it must be mutable, since it will change it's value
+    
+}    
+\end{lstlisting}
+
+\par In this example, we specify that we only want to use the \verb!io! module in the 
+ \verb!std! library. However let's say we don't know what we really want from the \verb!std! 
+library, and instead of guessing, we could just import everything by using \verb!*! after 
+ \verb!std::!. 
+
+\par Consider the example below: 
+\begin{lstlisting}
+use std::*;
+fn main() {
+    //We will be copying one file to another
+    let mut a = fs::File::create("file.txt")
+        .expect("file not created");
+    //The file we will be copying from
+    let mut b = fs::File::open("copy.txt")
+        .expect("file not found");
+    //Using io to copy b to a
+    io::copy&mut b, &mut a)
+        .expect("file cannot be copied");
+}    
+\end{lstlisting}
+\par We get the following result:
+\lstset{language=sh}
+\begin{lstlisting}
+$ rustc ex.rs
+$ ./ex
+
+#copy.txt
+This file has words!!!
+
+#file.txt
+This file has words!!!    
+\end{lstlisting}
+
+
+As you can see we could access anything from \verb!std! using \verb!*!, however it isn't the
+most effective thing to do, in this example we only needed \verb!io! and \verb!fs! modules, so 
+let's just import those. 
+\lstset{style=mystyle}
+\begin{lstlisting}
+use std::{fs, io};
+
+fn main() {
+    //We will be copying one file to another
+    let mut a = fs::File::create("file.txt")
+        .expect("file not created");
+
+    //The file we will be copying from
+    let mut b = fs::File::open("copy.txt")
+        .expect("file not found");
+    //Using io to copy b to a
+    io::copy(&mut b, &mut a).expect("file cannot be copied");
+} 
+\end{lstlisting}
+
+As you can see, if you know what you want to import, and need multiple modules, then
+surround them with \verb!{ }!. 
+
+\begin{remark}
+\par When it comes to namespaces, whatever the module you import is the name
+you must start with. Such as, \verb!std::io! you use \verb!io::!, but if you did \verb!std::fs::File!, you must start with \verb!File::!
+\end{remark}

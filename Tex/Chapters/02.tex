@@ -1,0 +1,50 @@
+\chapter{Bindings \& Mutability}
+\par In Rust, another way of calling a binding is a variable. A binding is used as a placeholder to store memory of a particular value, and in Rust, by default is set to immutable. Before talking more about this, let's first look at how to declare a binding, one with type inference, and the other with an explicit type: 
+
+\begin{lstlisting}
+let a = 5.0; //Inferred by default as float64 or f64
+let b: f64 = 5.0; //Explicitly declared as type f64    
+\end{lstlisting}
+
+
+\par To delcare a binding, you must use the \verb!let! keyword with a purposeful name 
+and an assignment operator, \verb!=!, with an appropriate value with it. Due to Rust 
+being a safe memory language, all bindings are immutable by default, and this is different than most languages, however you'll see most of the times mutability isn't 
+necessary. But that doesn't mean mutability isn't possible, it is instead initiated with the convenient \verb!mut! keyword. 
+
+\begin{lstlisting}
+fn main(){
+    let mut a = "I am Mutable"; 
+    a = "I can change values!!!"; 
+    
+    let b = "I am immutable"; 
+    b = "This will cause an error!";
+    //Press play to check the error!
+}
+\end{lstlisting}
+
+\section{Data Types}
+Rust has four main data types, which are the following:
+
+\begin{itemize}
+  \item Integers (non decimal point numbers)
+  \begin{itemize}
+    \item  Signed: \verb!i8, i16, i32, i64, i128, isize!
+    \item Unsigned: \verb!u8, u16, u32, u64, u128, usize!
+  \end{itemize}
+  \item Floating Points (decimal point numbers)
+  \begin{itemize}
+    \item \verb!f32 or f64(inferred default)!
+  \end{itemize}
+  \item Boolean
+  \begin{itemize}
+    \item \verb!bool!, either evaluates to \verb!true or false!
+  \end{itemize}
+  \item Characters
+  \begin{itemize}
+    \item \verb!char!, such as \verb!'L'!
+  \end{itemize}
+\end{itemize}
+
+Another type that is commonly used but not primitive is Strings
+and is denoted by \verb!String!. 

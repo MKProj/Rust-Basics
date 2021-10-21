@@ -1,0 +1,93 @@
+\chapter{Modules \& Functions}
+\section{Function Syntax}
+\par A function in Rust is defined with the \verb!fn! keyword and is a block of code 
+that uses parameters to pass arguments and returns a value or values. To create a 
+function first use the \verb!fn! keyword along with a name, then put brackets!()! that will 
+contain the parameters, and then \verb!{}! for your block of code.
+
+\par To make this a lot simpler, observe a simple \verb!hello_world()! function that asks 
+for a name and prints \verb!"Hello World Name!"!. To do this we will also require a 
+parameter name that's a \verb!String!. 
+
+\begin{lstlisting}
+//Let's define our hello_world function
+fn hello_world(name: &String){
+// Since we don't want to entirely use the variable 
+// We will borrow it using &
+    println!("Hello World {}!", name);
+}
+
+fn main(){
+    let mut name: String = String::from("Bob");
+    //To call a function simply use it's name
+    hello_world(&name);
+}
+\end{lstlisting}
+
+\subsection{Return Type}
+When you write a function in Rust, you can either return nothing, in other 
+languages that may be called a \verb!void! function, or you can return a data type using 
+!fn foo()->type{}!. For our example we will create a simple add function to show an 
+easy example to return: 
+
+\begin{lstlisting}
+fn add(a:i32, b:i32)->i32{
+    a + b 
+}
+//Another way of returning is: 
+fn add_alt(a:i32, b:i32)->i32{
+    a + b
+}
+fn main(){
+    let a = add(2,5);
+    let b = add_alt(2,5);
+    
+    if a == b{
+        println!("Same result");
+    }
+}   
+\end{lstlisting}
+
+\section{Modules}
+\par To introduce modules we will be writing a program that involves two files, 
+we will respectively have \verb!lib.rs! and \verb!main.rs!. We will have two different sections or modules in our library, one being for geometry of 2D shapes and the other for 3D. To define a module, we must use the \verb!mod! keyword.
+
+\begin{remark}
+To have functions able to use outside of the module or library, make sure
+to use the \verb!pub! keyword to make it public (private by default).    
+\end{remark}
+ 
+
+\begin{lstlisting}
+//lib.rs
+mod 2D{
+    pub fn Area(len: f64, width: f64)->f64{
+        len*width; 
+    }
+}
+mod 3D{
+    pub fn Volume(len: f64, width: f64, height: f64){
+        len * width * height;
+    }
+}
+\end{lstlisting}
+
+\par Now to import our library, we must first \verb!mod! it then we can \verb!use! the 
+library, so let's do that. 
+
+\begin{lstlisting}
+//main.rs 
+mod lib; 
+use lib::2D;
+use lib::3D;
+
+fn main(){
+    /* 
+    Let's find the area and volume of 
+    a square and cube respectively. 
+    */  
+    let side = 2.56;
+    println!("Area: {}", Area(side, side));
+    println!("Volume: {}", Volume(side, side, side));
+}    
+\end{lstlisting}

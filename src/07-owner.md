@@ -9,8 +9,8 @@ fighting the borrow checker.
 
 ### Ownership Rules
 - Each value in Rust has a variable that's called it's __owner__
-- There can only be one owner at a time
-- When the owner goes out of scope, the value will be dropped
+- There can only be *one* owner at a time
+- When the owner goes out of scope, the value will be *dropped*
 
 We can see a simple example using closures: 
 ```rust

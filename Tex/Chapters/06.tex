@@ -1,0 +1,77 @@
+\chapter{Cargo}
+\par Cargo is Rust's package manager utility and is the recommended way to build a Rust program as it allows the ability to import crates, and publish your own. 
+It is very convenient to the user, and offers two different type of projects to be built: 
+
+\begin{itemize}
+    \item bin : A binary project is a project to be executable (default)
+    \item lib: A library is a way to store all your functions, modules, etc. seperately
+\end{itemize}
+\par A crate in Rust is a cargo project published in Rust's \url{http://crates.io}.  
+To create a new cargo project, we use the \verb!cargo new! option, and provided a name will create 
+a project for us with the following structure:
+
+\lstset{language=sh}
+\begin{lstlisting}
+$ cargo new myproject # Create binary crate myproejct
+$ cd myproject
+$ ls
+Cargo.toml src
+\end{lstlisting}
+
+\par  The \verb!src! directory contains all of our source code, and inside the folder contains a \verb!main.rs! file for us to do our work. 
+The \verb!Cargo.toml! file contains all of the metadata for out project such as name, author, version number, dependencies, etc. 
+For more information about what can be done in Cargo, you can visit \url{https://doc.rust-lang.org/cargo/index.html}.
+
+\par  For our example, we will make use of the \verb!rand! crate to create randomized numbers for a guessing game. 
+
+\begin{lstlisting}
+$ cargo new guess_game # create a new guess_game
+$ cargo search rand # let's find the version number of the crate
+rand = "0.8.4"      # Random number generators and other randomness functionality.
+\end{lstlisting}
+
+\par  Let's first edit our \verb!Cargo.toml! file and add the \verb!rand! crate as a dependency.
+\begin{lstlisting}
+#Cargo.toml
+[package]
+name = "myproject"
+version = "0.1.0"
+edition = "2018"
+    
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+    
+[dependencies]
+rand = "0.8.4"
+\end{lstlisting}
+\par Now that we have rand as a dependency,we are free to use it in our project. 
+Now we can edit our \verb!src/main.rs! file and begin our guessing game that does the following:
+
+\begin{itemize}
+    \item The user only has one attempt to try
+    \item We will tell them if they are too low or too high
+    \item They will have to guess from 1 to 10
+\end{itemize}
+
+\lstset{style=mystyle}
+\begin{lstlisting}
+use rand::Rng;// For rand numbers
+use std::cmp::{Ord, Ordering};// For Ordering 
+fn main() {
+    let rng = rand::thread_rng().gen_range(1..10);//Our random number generator
+
+    let mut s = String::new();//Use to get user input
+    println!("Enter your guess: ");// Ask for input
+    std::io::stdin().read_line(&mut s).unwrap();
+
+    let guess: i32 = s.trim().parse().unwrap();
+
+    //Now we match our guess to compare with our random number
+    match guess.cmp(&rng) {
+        Ordering::Greater => println!("Too high!"),
+        Ordering::Less => println!("Too low!"),
+        Ordering::Equal => println!("You're right!"),
+    }
+}
+\end{lstlisting}
+You can try yourself running \verb!cargo run! and see if you guess right. You may also build 
+the project by running, \verb!cargo build!, and the executable will be found in \verb!target/debug/<name>!. 
