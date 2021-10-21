@@ -148,8 +148,8 @@ fighting the borrow checker. </p>
 <h3 id="ownership-rules"><a class="header" href="#ownership-rules">Ownership Rules</a></h3>
 <ul>
 <li>Each value in Rust has a variable that's called it's <strong>owner</strong></li>
-<li>There can only be one owner at a time</li>
-<li>When the owner goes out of scope, the value will be dropped</li>
+<li>There can only be <em>one</em> owner at a time</li>
+<li>When the owner goes out of scope, the value will be <em>dropped</em></li>
 </ul>
 <p>We can see a simple example using closures: </p>
 <pre><pre class="playground"><code class="language-rust">
